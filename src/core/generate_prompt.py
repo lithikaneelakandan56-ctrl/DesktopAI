@@ -45,6 +45,9 @@ def prompt(state: AgentState, config: RunnableConfig) -> list[Any]:
     owner_name = app_config.OWNER_NAME
     user_profile = _build_user_profile()
 
+    previous_conversation = (
+    f"\n### 📜 Previous Conversation:\n{summary}" if summary else ""
+    )
     system_msg = f"""
 You are **{assistant_name}**, a witty, intelligent desktop AI assistant running locally on {owner_name}'s Linux machine.
 
@@ -74,7 +77,7 @@ Help {owner_name} with anything related to their digital life.
 
 {user_profile}
 
-{f"\n### 📜 Previous Conversation:\n{summary}" if summary else ""}
+{previous_conversation}
 """.strip()
 
     return [SystemMessage(content=system_msg)] + state["messages"]
