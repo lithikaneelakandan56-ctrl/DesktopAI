@@ -42,7 +42,7 @@ def tool(_func=None, *, return_direct=False):
                 result = func(*args, **kwargs)
                 logger.debug(f"[{func.__name__}] Result: {result}")
                 return result
-            except Exception as e:  # noqa: BLE001
+            except Exception as e:
                 logger.error(f"[{func.__name__}] Error: {e}")
                 return f"Error in {func.__name__}: {e}"
 
@@ -89,7 +89,7 @@ def open_google_chrome(url: str | None, new_window: bool = False) -> str:
     try:
         subprocess.Popen(command, shell=True)
         return f"Google Chrome opened with URL: {url}"
-    except Exception as e:  # noqa: BLE001
+    except Exception as e:
         logger.error(f"[open_google_chrome] Error: {e}")
         return f"Error opening Google Chrome: {e}"
 
@@ -103,7 +103,7 @@ def open_whatsapp_web() -> str:
     try:
         subprocess.Popen(["gtk-launch", "chrome-hnpfjngllnobngcgfapefoaidbinmjnm-Default.desktop"])
         return "WhatsApp Web launched."
-    except Exception as e:  # noqa: BLE001
+    except Exception as e:
         logger.error(f"[open_whatsapp_web] Error: {e}")
         return f"Error: {e}"
 
@@ -179,7 +179,7 @@ def web_search(
     try:
         results = search_tool.invoke({"query": query})
         return str(results)
-    except Exception as e:  # noqa: BLE001
+    except Exception as e:
         logger.error(f"[web_search] Error: {e}")
         return f"Error during web search: {e}"
 

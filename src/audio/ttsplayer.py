@@ -41,9 +41,7 @@ class TTSPlayer(threading.Thread):
 
     async def synthesize_to_file(self, text: str, filename: str):
         try:
-            communicate = edge_tts.Communicate(
-                text=text, voice=config.TTS_VOICE, rate=config.TTS_RATE
-            )
+            communicate = edge_tts.Communicate(text=text, voice=config.TTS_VOICE, rate=config.TTS_RATE)
             async for chunk in communicate.stream():
                 if chunk["type"] == "audio":
                     await asyncio.to_thread(

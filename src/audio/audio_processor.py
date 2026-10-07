@@ -39,7 +39,7 @@ class AudioProcessor:
                 logger.info(f"Transcription: {transcription}")
                 return transcription
 
-        except Exception as e:  # noqa: BLE001
+        except Exception as e:
             logger.error(f"Error processing audio: {e}")
             return None
         finally:
