@@ -47,7 +47,7 @@ def main():
         print()  # Newline after the countdown
         logger.info(f"Voice profile saved to {OWNER_FILE}")
         print(f"✅ Voice profile saved to {OWNER_FILE}")
-    except Exception as e:
+    except Exception as e:  # noqa: BLE001
         logger.error(f"Error during recording: {e}")
         sys.exit(1)
 

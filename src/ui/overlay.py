@@ -212,7 +212,7 @@ class TransparentOverlayQt(QMainWindow):
                     text = args[0]
                     self.add_log_message(f"Jasper: {text}", "#00FF00")  # Green
 
-            except Exception as e:
+            except Exception as e:  # noqa: BLE001
                 logger.error(f"Error processing message: {e}")
 
     def start(self):

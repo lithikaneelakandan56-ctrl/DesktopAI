@@ -171,7 +171,7 @@ class Listener:
             future = executor.submit(func, audio_data)
             try:
                 future.result(timeout=config.AUDIO_PROCESSING_TIMEOUT)
-            except Exception as e:
+            except Exception as e:  # noqa: BLE001
                 logger.error(f"Error processing audio: {e}")
 
         logger.info("👋 Stopped listening")

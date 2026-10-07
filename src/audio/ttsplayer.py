@@ -14,6 +14,11 @@ from src.utils.logger import get_logger
 logger = get_logger()
 
 
+def _write_audio_chunk(filename, data):
+    with open(filename, "ab") as f:
+        f.write(data)
+
+
 class TTSPlayer(threading.Thread):
     def __init__(self):
         super().__init__(daemon=True)
@@ -36,11 +41,16 @@ class TTSPlayer(threading.Thread):
 
     async def synthesize_to_file(self, text: str, filename: str):
         try:
-            communicate = edge_tts.Communicate(text=text, voice=config.TTS_VOICE, rate=config.TTS_RATE)
-            with open(filename, "wb") as f:
-                async for chunk in communicate.stream():
-                    if chunk["type"] == "audio":
-                        f.write(chunk["data"])
+            communicate = edge_tts.Communicate(
+                text=text, voice=config.TTS_VOICE, rate=config.TTS_RATE
+            )
+            async for chunk in communicate.stream():
+                if chunk["type"] == "audio":
+                    await asyncio.to_thread(
+                        _write_audio_chunk,
+                        filename,
+                        chunk["data"],
+                    )
         except Exception as e:
             logger.error(f"Edge TTS error: {e}")
             raise

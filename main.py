@@ -67,7 +67,7 @@ class DesktopAssistant:
             overlay.put_message("response", response)
             overlay.put_message("status", "Active", "green")
             self.speech.speak(response)
-        except Exception as e:
+        except Exception as e:  # noqa: BLE001
             logger.error(f"Error processing query: {e}")
             overlay.put_message("status", "Error occurred", "red")
             self.speech.speak("Sorry, an error occurred while processing your request.")
